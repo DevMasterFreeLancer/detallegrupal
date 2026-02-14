@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amor y Amistad - Para Todos ❤️✨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 40%, #f093fb 70%, #f5576c 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #ff8a00, #da1b60, #00c9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 300;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .friend-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: card-appear 0.6s ease-out forwards;
+        }
+
+        .friend-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .friend-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff8a00, #da1b60, #00c9ff);
+        }
+
+        .friend-card.emoji-1::before { background: linear-gradient(90deg, #ff416c, #ff4b2b); }
+        .friend-card.emoji-2::before { background: linear-gradient(90deg, #00c9ff, #92fe9d); }
+        .friend-card.emoji-3::before { background: linear-gradient(90deg, #ff9a9e, #fad0c4); }
+        .friend-card.emoji-4::before { background: linear-gradient(90deg, #a1c4fd, #c2e9fb); }
+        .friend-card.emoji-5::before { background: linear-gradient(90deg, #f6d365, #fda085); }
+        .friend-card.emoji-6::before { background: linear-gradient(90deg, #84fab0, #8fd3f4); }
+
+        .card-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: particle-float 4s ease-out forwards;
+        }
+
+        @keyframes particle-float {
+            0% {
+                transform: translateY(100vh) scale(0.3) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes card-appear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff8a00 0%, #da1b60 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #00c9ff 0%, #92fe9d 100%);
+            color: #333;
+        }
+
+        .btn-tertiary {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            color: #333;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .quote-box {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .quote-box::before {
+            content: """;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 8rem;
+            color: rgba(0,0,0,0.1);
+            font-family: Georgia, serif;
+        }
+
+        .quote {
+            font-size: 1.4rem;
+            color: #333;
+            line-height: 1.8;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 0;
+            animation: confetti-fall 5s ease-in-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(1080deg) scale(1);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .footer-text {
+            margin-top: 40px;
+            color: #fff;
+            font-size: 1.1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 300;
+        }
+
+        .emoji-reaction {
+            font-size: 3rem;
+            margin: 20px;
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn {
+                width: 80%;
+            }
+            .quote {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles-container" id="particlesContainer"></div>
+    
+    <div class="container">
+        <h1>❤️ Amor y Amistad ❤️</h1>
+        <p class="subtitle">Celebrando los lazos que nos unen - 14 de Febrero 2026</p>
+        
+        <div class="quote-box">
+            <p class="quote" id="mainQuote">
+                La amistad es el ingrediente más importante en la receta de la vida. 
+                Celebremos juntos ese cariño que nos hace mejores personas.
+            </p>
+            <p class="quote-author">— Para todos mis increíbles amigos</p>
+        </div>
+        
+        <div class="card-container">
+            <div class="friend-card emoji-1" onclick="showReaction('❤️')">
+                <div class="card-icon">❤️</div>
+                <h3 class="card-title">Amor</h3>
+                <p class="card-text">Porque el amor no tiene género, 
+                   solo tiene corazón. Gracias por ser parte de mi vida.</p>
+            </div>
+            
+            <div class="friend-card emoji-2" onclick="showReaction('🤝')">
+                <div class="card-icon">🤝</div>
+                <h3 class="card-title">Amistad</h3>
+                <p class="card-text">Los amigos son la familia que elegimos. 
+                   Cada uno de ustedes es especial e irrepetible.</p>
+            </div>
+            
+            <div class="friend-card emoji-3" onclick="showReaction('🎉')">
+                <div class="card-icon">🎉</div>
+                <h3 class="card-title">Celebración</h3>
+                <p class="card-text">Hoy celebramos todos los tipos de amor: 
+                   de pareja, de amigos, de familia. ¡Todos cuentan!</p>
+            </div>
+            
+            <div class="friend-card emoji-4" onclick="showReaction('😄')">
+                <div class="card-icon">😄</div>
+                <h3 class="card-title">Risas</h3>
+                <p class="card-text">Las mejores conversaciones, los mejores momentos, 
+                   las mejores risas. Gracias por todo.</p>
+            </div>
+            
+            <div class="friend-card emoji-5" onclick="showReaction('🌟')">
+                <div class="card-icon">🌟</div>
+                <h3 class="card-title">Aprecio</h3>
+                <p class="card-text">Valoro cada momento compartido, 
+                   cada consejo, cada abrazo. Eres importante para mí.</p>
+            </div>
+            
+            <div class="friend-card emoji-6" onclick="showReaction('🎁')">
+                <div class="card-icon">🎁</div>
+                <h3 class="card-title">Regalo</h3>
+                <p class="card-text">La mejor compañía es el mejor regalo. 
+                   Tenerlos en mi vida es un verdadero tesoro.</p>
+            </div>
+        </div>
+        
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="changeQuote()">
+                <span>💬</span> Nuevo Mensaje
+            </button>
+            <button class="btn btn-secondary" onclick="createConfetti()">
+                <span>🎊</span> Celebrar
+            </button>
+            <button class="btn btn-tertiary" onclick="shuffleCards()">
+                <span>🔄</span> Reordenar
+            </button>
+        </div>
+        
+        <div id="reactionArea" style="min-height: 60px; margin: 20px 0;"></div>
+        
+        <p class="footer-text">
+            🎵 Comparte este momento con todas las personas especiales en tu vida 🎵
+        </p>
+    </div>
+
+    <script>
+        // Crear partículas flotantes
+        function createParticles() {
+            const particlesContainer = document.getElementById('particlesContainer');
+            const symbols = ['❤️', '✨', '🌟', '🎉', '🎁', '🤝', '😄', '💫', '🎈', '🎊'];
+            
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                    
+                    const posX = Math.random() * 100;
+                    const delay = Math.random() * 4;
+                    const duration = 3 + Math.random() * 2;
+                    
+                    particle.style.left = `${posX}%`;
+                    particle.style.animationDelay = `${delay}s`;
+                    particle.style.animationDuration = `${duration}s`;
+                    
+                    particlesContainer.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        particle.remove();
+                    }, (duration + delay) * 1000);
+                }, i * 300);
+            }
+        }
+
+        // Mostrar reacción al hacer clic
+        function showReaction(emoji) {
+            const reactionArea = document.getElementById('reactionArea');
+            const reaction = document.createElement('div');
+            reaction.className = 'emoji-reaction';
+            reaction.textContent = emoji;
+            reaction.style.position = 'absolute';
+            reaction.style.left = `${Math.random() * 80 + 10}%`;
+            
+            reactionArea.appendChild(reaction);
+            
+            setTimeout(() => {
+                reaction.remove();
+            }, 1000);
+        }
+
+        // Cambiar cita aleatoria
+        function changeQuote() {
+            const quotes = [
+                {
+                    text: "El amor y la amistad no entienden de géneros, solo de corazones sinceros.",
+                    author: "— Celebrando nuestra diversidad"
+                },
+                {
+                    text: "Un buen amigo es como una estrella: aunque no siempre lo veas, sabes que está ahí.",
+                    author: "— Gracias por estar"
+                },
+                {
+                    text: "La vida es mejor cuando la compartes con personas que te aceptan tal como eres.",
+                    author: "— Para mis amigos auténticos"
+                },
+                {
+                    text: "No importa si somos hombres o mujeres, lo que importa es el cariño que nos tenemos.",
+                    author: "— Amistad sin barreras"
+                },
+                {
+                    text: "Los verdaderos amigos son esos raros seres que nos preguntan cómo estamos... ¡y realmente quieren saber la respuesta!",
+                    author: "— Agradecido por ustedes"
+                },
+                {
+                    text: "Hoy celebramos todos los amores: el de pareja, el de amigos, el de familia. Todos son igual de importantes.",
+                    author: "— Feliz día para todos"
+                },
+                {
+                    text: "La amistad verdadera es como la salud: su valor rara vez se reconoce hasta que se pierde.",
+                    author: "— Cuidemos nuestros lazos"
+                },
+                {
+                    text: "En este grupo hay espacio para todos los colores del arcoíris del amor y la amistad.",
+                    author: "— Diversidad y cariño"
+                }
+            ];
+            
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            
+            // Efecto de transición
+            const quoteBox = document.querySelector('.quote-box');
+            quoteBox.style.animation = 'none';
+            setTimeout(() => {
+                document.getElementById('mainQuote').textContent = randomQuote.text;
+                document.querySelector('.quote-author').textContent = randomQuote.author;
+                quoteBox.style.animation = 'slideIn 0.5s ease-out';
+            }, 10);
+        }
+
+        // Crear confeti
+        function createConfetti() {
+            const colors = [
+                '#ff416c', '#ff4b2b', '#ff8a00', '#ffcc00', 
+                '#00c9ff', '#92fe9d', '#a1c4fd', '#c2e9fb',
+                '#f6d365', '#fda085', '#84fab0', '#8fd3f4'
+            ];
+            const shapes = ['square', 'circle', 'triangle'];
+            
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                confetti.style.backgroundColor = color;
+                
+                if (shape === 'circle') {
+                    confetti.style.borderRadius = '50%';
+                } else if (shape === 'triangle') {
+                    confetti.style.width = '0';
+                    confetti.style.height = '0';
+                    confetti.style.borderLeft = '6px solid transparent';
+                    confetti.style.borderRight = '6px solid transparent';
+                    confetti.style.borderBottom = `12px solid ${color}`;
+                    confetti.style.backgroundColor = 'transparent';
+                }
+                
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 2;
+                const duration = 3 + Math.random() * 3;
+                
+                confetti.style.left = `${posX}%`;
+                confetti.style.animationDelay = `${delay}s`;
+                confetti.style.animationDuration = `${duration}s`;
+                
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, duration * 1000 + delay * 1000);
+            }
+            
+            // Sonido de celebración (simulado con alert)
+            setTimeout(() => {
+                showReaction('🎊');
+                showReaction('🎉');
+                showReaction('✨');
+            }, 500);
+        }
+
+        // Reordenar tarjetas
+        function shuffleCards() {
+            const container = document.querySelector('.card-container');
+            const cards = Array.from(container.children);
+            
+            // Remover todas las tarjetas
+            cards.forEach(card => container.removeChild(card));
+            
+            // Mezclar el array
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+            
+            // Reinsertar en nuevo orden
+            cards.forEach((card, index) => {
+                card.style.animation = 'none';
+                setTimeout(() => {
+                    card.style.animation = 'card-appear 0.5s ease-out forwards';
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    container.appendChild(card);
+                }, 10);
+            });
+        }
+
+        // Inicializar
+        window.onload = function() {
+            createParticles();
+            
+            // Crear nuevas partículas periódicamente
+            setInterval(createParticles, 3000);
+            
+            // Cambiar cita automáticamente cada 15 segundos
+            setInterval(changeQuote, 15000);
+        };
+    </script>
+</body>
+</html>
