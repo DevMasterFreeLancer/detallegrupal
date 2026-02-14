@@ -14,9 +14,22 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 40%, #f093fb 70%, #f5576c 100%);
+            background-attachment: fixed; /* Para que el gradiente no se mueva al hacer scroll */
             min-height: 100vh;
-            overflow: hidden;
+            overflow-y: auto; /* Permitir scroll vertical */
+            overflow-x: hidden; /* Evitar scroll horizontal */
             position: relative;
+            color: #333;
+        }
+
+        .particles-container {
+            position: fixed; /* Cambiado a fixed para que las partículas floten sobre el contenido */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
 
         .container {
@@ -116,21 +129,12 @@
             line-height: 1.6;
         }
 
-        .particles-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
         .particle {
-            position: absolute;
+            position: fixed; /* Cambiado a fixed para que floten al hacer scroll */
             font-size: 20px;
             opacity: 0;
             animation: particle-float 4s ease-out forwards;
+            z-index: 2;
         }
 
         @keyframes particle-float {
@@ -244,12 +248,13 @@
         }
 
         .confetti {
-            position: absolute;
+            position: fixed; /* Cambiado a fixed para que el confeti funcione con scroll */
             width: 12px;
             height: 12px;
             border-radius: 0;
             animation: confetti-fall 5s ease-in-out forwards;
             opacity: 0;
+            z-index: 1000;
         }
 
         @keyframes confetti-fall {
@@ -286,12 +291,15 @@
             font-size: 1.1rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             font-weight: 300;
+            padding-bottom: 60px; /* Espacio extra al final */
         }
 
         .emoji-reaction {
             font-size: 3rem;
             margin: 20px;
             animation: bounce 0.5s ease;
+            position: fixed; /* Cambiado a fixed para reacciones */
+            z-index: 9999;
         }
 
         @keyframes bounce {
@@ -301,6 +309,75 @@
             50% {
                 transform: translateY(-20px);
             }
+        }
+
+        /* Sección de mensajes extendidos */
+        .extended-messages {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .message-item {
+            text-align: left;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed rgba(0,0,0,0.1);
+        }
+
+        .message-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .message-title {
+            font-size: 1.3rem;
+            color: #ff416c;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .message-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.8);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-indicator.show {
+            opacity: 1;
+        }
+
+        .scroll-indicator:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .scroll-indicator::after {
+            content: '↑';
+            font-size: 24px;
+            font-weight: bold;
         }
 
         @media (max-width: 768px) {
@@ -322,6 +399,12 @@
             }
             .quote {
                 font-size: 1.1rem;
+            }
+            .scroll-indicator {
+                width: 40px;
+                height: 40px;
+                bottom: 20px;
+                right: 20px;
             }
         }
     </style>
@@ -397,12 +480,70 @@
             </button>
         </div>
         
-        <div id="reactionArea" style="min-height: 60px; margin: 20px 0;"></div>
+        <div id="reactionArea"></div>
+        
+        <!-- Contenido extenso adicional -->
+        <div class="extended-messages">
+            <div class="message-item">
+                <h3 class="message-title">🌟 Para los que siempre están ahí</h3>
+                <p class="message-content">
+                    Quiero agradecerles por ser ese hombro en el que apoyarme, 
+                    por escucharme sin juzgar y por hacerme reír cuando más lo necesito. 
+                    La amistad verdadera no se mide en tiempo, sino en momentos compartidos 
+                    y en corazones conectados. ¡Gracias por ser parte de mi vida!
+                </p>
+            </div>
+            
+            <div class="message-item">
+                <h3 class="message-title">🤝 Amistad sin barreras</h3>
+                <p class="message-content">
+                    No importa si somos hombres o mujeres, jóvenes o adultos, 
+                    de diferentes culturas o formas de pensar. Lo que realmente importa 
+                    es el cariño genuino que nos tenemos. En este grupo especial, 
+                    cada persona aporta algo único y valioso. ¡Celebremos nuestra diversidad!
+                </p>
+            </div>
+            
+            <div class="message-item">
+                <h3 class="message-title">💫 Recuerdos inolvidables</h3>
+                <p class="message-content">
+                    Desde las conversaciones hasta altas horas de la noche, 
+                    hasta esos momentos espontáneos que terminan en risas incontrolables. 
+                    Cada recuerdo con ustedes es un tesoro que guardo en mi corazón. 
+                    Espero que sigamos creando muchos más juntos. ¡El mejor está por venir!
+                </p>
+            </div>
+            
+            <div class="message-item">
+                <h3 class="message-title">🌈 Juntos en las buenas y en las malas</h3>
+                <p class="message-content">
+                    La vida tiene sus altibajos, pero saber que cuento con ustedes 
+                    hace que todo sea más llevadero. En los momentos difíciles, 
+                    su apoyo ha sido mi motor. En los momentos felices, 
+                    su compañía ha sido mi mayor alegría. ¡Gracias por caminar a mi lado!
+                </p>
+            </div>
+            
+            <div class="message-item">
+                <h3 class="message-title">🎊 ¡Feliz Día del Amor y la Amistad!</h3>
+                <p class="message-content">
+                    Hoy celebramos ese sentimiento especial que nos une. 
+                    No es necesario ser de la misma sangre para ser familia, 
+                    ni estar enamorados para amar profundamente. 
+                    El amor de amistad es uno de los más puros y sinceros. 
+                    ¡Brindemos por todos nosotros y por muchos años más de complicidad!
+                </p>
+            </div>
+        </div>
         
         <p class="footer-text">
-            🎵 Comparte este momento con todas las personas especiales en tu vida 🎵
+            🎵 Comparte este momento con todas las personas especiales en tu vida 🎵<br><br>
+            💝 Gracias por ser parte de esta historia 💝<br><br>
+            ✨ ¡Que el amor y la amistad nunca falten en sus vidas! ✨
         </p>
     </div>
+    
+    <div class="scroll-indicator" id="scrollTopBtn" onclick="scrollToTop()"></div>
 
     <script>
         // Crear partículas flotantes
@@ -439,10 +580,17 @@
             const reaction = document.createElement('div');
             reaction.className = 'emoji-reaction';
             reaction.textContent = emoji;
-            reaction.style.position = 'absolute';
-            reaction.style.left = `${Math.random() * 80 + 10}%`;
             
-            reactionArea.appendChild(reaction);
+            // Posición aleatoria en la pantalla visible
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const posX = Math.random() * (viewportWidth - 100) + 50;
+            const posY = Math.random() * (viewportHeight - 100) + 50;
+            
+            reaction.style.left = `${posX}px`;
+            reaction.style.top = `${posY}px`;
+            
+            document.body.appendChild(reaction);
             
             setTimeout(() => {
                 reaction.remove();
@@ -527,11 +675,13 @@
                     confetti.style.backgroundColor = 'transparent';
                 }
                 
-                const posX = Math.random() * 100;
+                // Posición aleatoria en la pantalla visible
+                const viewportWidth = window.innerWidth;
+                const posX = Math.random() * viewportWidth;
                 const delay = Math.random() * 2;
                 const duration = 3 + Math.random() * 3;
                 
-                confetti.style.left = `${posX}%`;
+                confetti.style.left = `${posX}px`;
                 confetti.style.animationDelay = `${delay}s`;
                 confetti.style.animationDuration = `${duration}s`;
                 
@@ -542,7 +692,7 @@
                 }, duration * 1000 + delay * 1000);
             }
             
-            // Sonido de celebración (simulado con alert)
+            // Reacciones adicionales
             setTimeout(() => {
                 showReaction('🎊');
                 showReaction('🎉');
@@ -575,6 +725,24 @@
             });
         }
 
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Mostrar/ocultar botón de scroll to top
+        function checkScrollPosition() {
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        }
+
         // Inicializar
         window.onload = function() {
             createParticles();
@@ -584,6 +752,9 @@
             
             // Cambiar cita automáticamente cada 15 segundos
             setInterval(changeQuote, 15000);
+            
+            // Verificar posición de scroll
+            window.addEventListener('scroll', checkScrollPosition);
         };
     </script>
 </body>
